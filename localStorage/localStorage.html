@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>localStorage</title>
+</head>
+<body onload="pageload()">
+	<form id="frmLogin" action="#">
+		<fieldset>登录</fieldset>
+		<ul>
+			<li class="li_top">
+				<span id="spnStatus"></span>
+			</li>
+			<li>
+				名称：
+				<input type="text" name="txtName" id="txtName" class="inputtxt">
+			</li>
+			<li>
+				密码：
+				<input type="password" name="txtPass" id="txtPass" class="inputtxt">
+			</li>
+			<li>
+				<input type="checkbox" name="" id="chkSave">
+				是否保存密码
+			</li>
+			<li class="li_bot">
+				<input type="button" name="btnLongin" class="inputbtn" value="登录" onclick="btnLogin_click();">
+				<input type="reset" name="retLogin" class="inputbtn" value="取消">
+			</li>
+		</ul>
+	</form>
+	<script type="text/javascript">
+		function $$(id) {
+			return document.getElementById(id);
+		}
+		function pageload () {
+			var strName = localStorage.getItem("keyName");
+			var strPass = localStorage.getItem("keyPass");
+			if (strName) {
+				$$("txtName").value = strName;
+			}
+			if (strPass) {
+				$$("txtPass").value = strPass;
+			}
+		}
+		function btnLogin_click () {
+			var strName = $$("txtName").value;
+			var strPass = $$("txtPass").value;
+			localStorage.setItem("keyName",strName);
+			if ($$("chkSave").checked) {
+				localStorage.setItem("keyPass",strPass);
+			}
+			else {
+				localStorage.removeItem("keyPass");
+			}
+			$$("spnStatus").className ="status";
+			$$("spnStatus").innerHTML = "登录成功！";
+		}
+	</script>
+</body>
+</html>

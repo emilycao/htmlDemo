@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>transaction</title>
+</head>
+<body>
+	<input type="button" id="btnCreateTrans" class="inputbtn" value="执行事务" onclick="btnCreateTrans_click();">
+	<p id="pStatus"></p>
+	<script type="text/javascript">
+		function $$(id) {
+			return document.getElementById(id);
+		}
+		var db;
+		function btnCreateTrans_click () {
+			db = openDatabase('Student','1.0','StuManage',2*1024*1024,
+				function () {
+					alert('数据库OK!');
+				});
+			if (db) {
+				var strSQL = 'create table if not exists StuInfo';
+				strSQL += '(StuID unique,Name text,Sex text,Score int)';
+				db.transaction(function (tx) {
+					tx.executeSql(strSQL);
+				},
+				function () {
+					Status_Handle('事务执行出错！');
+				},
+				function () {
+					Status_Handle('事务执行成功！');
+				});
+			}
+		}
+		function Status_Handle (message) {
+			$$('pStatus').style.display = 'block';
+			$$('pStatus').innerHTML = message;
+		}
+	</script>
+</body>
+</html>

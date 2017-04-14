@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>遍历localStorage对象保存的全部数据</title>
+</head>
+<body onload="getlocalData();">
+	<ul id="ulMessage">
+		
+	</ul>
+	<p class="p4">
+		<textarea id="txtContent" class="inputtxt" cols="37" rows="5"></textarea><br/>
+		<input type="button" id="btnAdd" class="inputbtn" value="发表" onclick="btnAdd_click();">
+	</p>
+	<script type="text/javascript">
+		function $$(id) {
+			return document.getElementById(id);
+		}
+		function btnAdd_click () {
+			var strContent = $$("txtContent").value;
+			var strTime = new Date();
+			if (strContent.length > 0) {
+				var strKey = "cnt" + RetRndNum(4);
+				var strVal = strContent + "," + strTime.toLocaleTimeString();
+				localStorage.setItem(strKey,strVal);
+			}
+			getlocalData();
+			$$("txtContent").value = "";
+		}
+		function getlocalData () {
+			var strHTML = '<li class="li_h">'
+			strHTML += '<span class="span_a">编号</span>';
+			strHTML += '<span class="span_b">内容</span>';
+			strHTML += '<span class="span_c">时间</span>';
+			strHTML += '</li>';
+			var strArr = new Array();
+			for (var intI = 0; intI < localStorage.length; intI++) {
+				var strKey = localStorage.key(intI);
+				if (strKey.substring(0,3) == "cnt" ) {
+					var strVal = localStorage.getItem(strKey);
+					strArr = strVal.split(",");
+					strHTML += '<li class="li_c">';
+					strHTML += '<span class="span_a">' + strKey + '</span>';
+					strHTML += '<span class="span_b">' + strArr[0] + '</span>';
+					strHTML += '<span class="span_c">' + strArr[1] + '</span>';
+					strHTML += '</li>';
+				}
+			}
+			$$('ulMessage').innerHTML = strHTML;
+		}
+		function RetRndNum (n) {
+			var strRnd = "";
+			for (var intI = 0; intI < n; intI++) {
+				strRnd += Math.floor(Math.random()*10);
+			}
+			return strRnd;
+		}
+	</script>
+</body>
+</html>

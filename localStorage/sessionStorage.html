@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>sessionStorage</title>
+</head>
+<body>
+	<fieldset>
+		<legend>sessionStorage对象保存与读取临时数据</legend>
+		<input type="text" name="txtName" class="inputtxt" onChange="txtName_change(this);" size="30">
+		<input type="button" name="btnGetValue" class="inputbtn" onclick="btnGetValue_click();" value="读取">
+		<p id="pStatus"></p>
+	</fieldset>
+	<script type="text/javascript">
+		function $$(id) {
+			return document.getElementById(id);
+		}
+		function txtName_change (v) {
+			var strName = v.value;
+			sessionStorage.setItem("strName",strName);
+			$$("pStatus").style.display = "block";
+			$$("pStatus").innerHTML = sessionStorage.getItem("strName");
+		}
+		function btnGetValue_click () {
+			$$("pStatus").style.display = "block";
+			$$("pStatus").innerHTML = sessionStorage.getItem("strName");
+		}
+	</script>
+</body>
+</html>

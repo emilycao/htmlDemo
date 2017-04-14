@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>socket-json</title>
+	<script type="text/javascript" language="jscript" src="websocket.js"></script>
+</head>
+<body onload="pageload();">
+<fieldset>
+	<legend>使用JSON对象传输</legend>
+	<div>
+		<span><b>对话记录</b></span>
+		<span class="pl140">
+			<b>在线人员</b>
+		</span>
+	</div>
+	<textarea id="txtaList" cols="26" rows="12" readonly="true"></textarea>
+	<textarea id="txtaUser" cols="10" rows="12" readonly="true"></textarea>
+	<div class="p12">
+		<input type="text" id="txtMessage" name="">
+		<input type="button" id="btnAdd" value="发送" onclick="btnSend_click();" name="">
+	</div>
+</fieldset>
+
+</body>
+</html>
